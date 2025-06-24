@@ -1,0 +1,8 @@
+<div class="movie-list-page">
+  <h1>You are now in the Movie List!</h1>
+
+  <div *ngFor="let movie of movies" class="movie-card">
+    <h2>{{ movie.Title }}</h2>
+    <p>{{ movie.Description }}</p>
+  </div>
+</div>

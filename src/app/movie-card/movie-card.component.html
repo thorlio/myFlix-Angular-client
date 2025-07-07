@@ -1,0 +1,22 @@
+<div class="movie-card-container">
+  <mat-card *ngFor="let movie of movies" class="movie-card">
+    <img
+      mat-card-image
+      [src]="movie.imagePath || 'https://via.placeholder.com/300x400?text=No+Image'"
+      alt="Movie Poster"
+    />
+    <mat-card-content>
+      <h2>{{ movie.title }}</h2>
+      <p>Directed by {{ movie.director }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="openGenreDialog(movie.genre)">Genre</button>
+      <button mat-button (click)="openDirectorDialog(movie.director)">Director</button>
+      <button mat-button (click)="openSynopsisDialog(movie)">Details</button>
+      <button mat-icon-button (click)="addToFavorites(movie._id)">
+  <mat-icon>favorite_border</mat-icon>
+</button>
+
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,23 @@
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertically center */
+  align-items: center;      /* horizontally center */
+  height: 100vh;            /* take full viewport height */
+  text-align: center;
+  padding: 16px;
+
+  h1 {
+    margin-bottom: 32px;
+    font-size: 2rem;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 16px;
+
+    button {
+      min-width: 120px;
+    }
+  }
+}

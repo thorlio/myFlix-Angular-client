@@ -1,0 +1,50 @@
+<mat-card class="profile-card" *ngIf="profileForm">
+  <h2>Manage Profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="Username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="Password" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Birthday</mat-label>
+      <input matInput type="date" formControlName="Birthday" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" style="margin-top: 16px; display: block;">
+      Update
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="deleteProfile()"
+      style="margin-top: 16px; display: block;"
+    >
+      Delete Account
+    </button>
+  </form>
+</mat-card>
+<mat-card *ngIf="favoriteMovieDetails.length > 0" style="margin-top: 32px;">
+  <h3>Your Favorite Movies</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let movie of favoriteMovieDetails">
+      {{ movie.title }}
+      <button mat-icon-button color="warn" (click)="removeFavorite(movie._id)" style="margin-left: auto;">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+
+  </mat-list>
+</mat-card>

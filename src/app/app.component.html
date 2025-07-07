@@ -1,21 +1,9 @@
-<div class="main-page">
-  <h1>Welcome to OhMyFlix!</h1>
-
-  <!-- Show when not logged in-->
-  <button *ngIf="!isLoggedIn()" mat-raised-button color="primary" (click)="openUserRegistrationDialog()">
-    Sign Up
-  </button>
-
-  <button *ngIf="!isLoggedIn()" mat-raised-button color="accent" (click)="openUserLoginDialog()">
-    Login
-  </button>
-
-  <!-- Show when logged in -->
-  <button *ngIf="isLoggedIn()" mat-raised-button color="warn" (click)="logout()">
-    Logout
-  </button>
-
-</div>
+<mat-toolbar color="primary">
+  <span>myFlix</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/movies">Movies</button>
+  <button mat-button routerLink="/profile">Profile</button>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
-

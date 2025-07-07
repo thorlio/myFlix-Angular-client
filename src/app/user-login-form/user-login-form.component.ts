@@ -30,20 +30,26 @@ export class UserLoginFormComponent {
   @Input() userData = { Username: '', Password: '' };
 
   constructor(
-    public fetchApiData: FetchApiDataService,
+    private fetchApiData: FetchApiDataService,
     private dialogRef: MatDialogRef<UserLoginFormComponent>,
-    public snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
   loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe({
       next: (result) => {
+        // store the token and user locally
         localStorage.setItem('token', result.token);
         localStorage.setItem('user', result.user.Username);
+
+        // close the dialog
         this.dialogRef.close();
+
+        // show success notification
         this.snackBar.open('Login successful!', 'OK', { duration: 2000 });
 
+        // navigate to the movies view
         this.router.navigate(['/movies']);
       },
       error: (error) => {

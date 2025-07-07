@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FetchApiDataService } from '../fetch-api-data.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-movie-list',
-  templateUrl: './movie-list.html',
-  styleUrls: ['./movie-list.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, MatCardModule],
+  templateUrl: './movie-list.component.html',
+  styleUrls: ['./movie-list.component.scss']
 })
 export class MovieListComponent implements OnInit {
   movies: any[] = [];
@@ -15,16 +16,14 @@ export class MovieListComponent implements OnInit {
   constructor(private fetchApiData: FetchApiDataService) {}
 
   ngOnInit(): void {
-    this.fetchApiData.getAllMovies().subscribe({
-      next: (movies) => {
-        this.movies = movies;
-      },
-      error: (error) => {
-        console.error('Error fetching movies:', error);
-      }
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      console.log(this.movies);
     });
   }
 }
+
+
 
 
 // import { Component, OnInit } from '@angular/core';

@@ -18,12 +18,14 @@ export class FetchApiDataService {
     return this.http.post(this.apiUrl + 'login', userDetails);
   }
 
-  public getAllMovies(): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http.get(this.apiUrl + 'movies', {
-      headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
-    });
-  }
+ getAllMovies(): Observable<any> {
+  const token = localStorage.getItem('token');
+  console.log("token being sent", token);
+  return this.http.get(this.apiUrl + 'movies', {
+    headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
+  });
+}
+
 
   public getOneMovie(title: string): Observable<any> {
     const token = localStorage.getItem('token');
@@ -63,7 +65,7 @@ export class FetchApiDataService {
   public addFavoriteMovie(username: string, movieId: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.post(this.apiUrl + `users/${username}/movies/${movieId}`, {}, {
-      headers: new HttpHeaders({ Authorization: 'Bearer ' + token })
+      headers: new HttpHeaders({ Authorization: 'Bearer  ' + token })
     });
   }
 

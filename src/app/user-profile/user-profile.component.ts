@@ -15,6 +15,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { FetchApiDataService } from '../fetch-api-data.service';
 
+/**
+ * UserProfileComponent handles user data display and management,
+ * including viewing and editing profile info, favorite movies, and
+ * deleting the account.
+ */
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -33,20 +38,47 @@ import { FetchApiDataService } from '../fetch-api-data.service';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  /**
+   * Holds user data fetched from the backend.
+   */
   user: any = {};
+
+  /**
+   * The form group used to update user profile.
+   */
   profileForm!: FormGroup;
+
+  /**
+   * Stores the list of favorite movie IDs from the user profile.
+   */
   favoriteMovieIds: string[] = [];
+
+  /**
+   * Stores the detailed movie objects that match favoriteMovieIds.
+   */
   favoriteMovieDetails: any[] = [];
 
+  /**
+   * Creates an instance of UserProfileComponent.
+   * @param fetchApiData Injected service to interact with the backend API
+   * @param fb Angular FormBuilder to create reactive forms
+   */
   constructor(
     private fetchApiData: FetchApiDataService,
     private fb: FormBuilder
   ) {}
 
+  /**
+   * Angular component initialization.
+   * It loads the user profile from the backend.
+   */
   ngOnInit(): void {
     this.getUser();
   }
 
+  /**
+   * Fetches the current user data and initializes the profile form.
+   */
   getUser(): void {
     const username = localStorage.getItem('user');
     if (username) {
@@ -64,6 +96,9 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Loads all movies and filters only those that are in the user's favorites list.
+   */
   loadFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((allMovies: any[]) => {
       this.favoriteMovieDetails = allMovies.filter((m: any) =>
@@ -72,16 +107,23 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Removes a movie from the user's favorites list.
+   * @param movieId The ID of the movie to remove
+   */
   removeFavorite(movieId: string): void {
     const username = localStorage.getItem('user');
     if (username) {
       this.fetchApiData.deleteFavoriteMovie(username, movieId).subscribe(() => {
         alert('Removed from favorites!');
-        this.getUser();
+        this.getUser(); // Refresh user data
       });
     }
   }
 
+  /**
+   * Updates the user's profile using the form values.
+   */
   updateProfile(): void {
     if (this.profileForm.valid) {
       const username = localStorage.getItem('user');
@@ -93,6 +135,9 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes the user's account after confirmation, then clears storage and reloads.
+   */
   deleteProfile(): void {
     const username = localStorage.getItem('user');
     if (confirm('Are you sure you want to delete your account?')) {

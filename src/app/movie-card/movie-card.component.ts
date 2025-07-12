@@ -11,6 +11,13 @@ import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
 import { DirectorDialogComponent } from '../director-dialog/director-dialog.component';
 import { MovieSynopsisDialogComponent } from '../movie-synopsis-dialog/movie-synopsis-dialog.component';
 
+/**
+ * This is the movie card component.
+ * It shows a list of all movies and gives users options to:
+ * - open a dialog with genre, director, or synopsis info
+ * - add a movie to their favorites
+ * - log out of the app
+ */
 @Component({
   selector: 'app-movie-card',
   standalone: true,
@@ -26,6 +33,9 @@ import { MovieSynopsisDialogComponent } from '../movie-synopsis-dialog/movie-syn
   styleUrls: ['./movie-card.component.scss'],
 })
 export class MovieCardComponent implements OnInit {
+  /**
+   * List of movies pulled from the database.
+   */
   movies: any[] = [];
 
   constructor(
@@ -34,10 +44,16 @@ export class MovieCardComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+   * Runs right when this screen loads. Calls the function to load all movies.
+   */
   ngOnInit(): void {
     this.getMovies();
   }
 
+  /**
+   * Calls the API to fetch all movies and puts them into the `movies` array.
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -45,6 +61,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens a little pop-up (dialog) with genre info.
+   * @param genre The genre data from the movie.
+   */
   openGenreDialog(genre: any): void {
     this.dialog.open(GenreDialogComponent, {
       data: {
@@ -54,12 +74,20 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens a dialog that shows info about the movie's director.
+   * @param director The director object.
+   */
   openDirectorDialog(director: any): void {
     this.dialog.open(DirectorDialogComponent, {
       data: director,
     });
   }
 
+  /**
+   * Opens a dialog showing the movie's title and description.
+   * @param movie The full movie object.
+   */
   openSynopsisDialog(movie: any): void {
     this.dialog.open(MovieSynopsisDialogComponent, {
       width: '400px',
@@ -70,6 +98,10 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Adds a movie to the user's list of favorite movies.
+   * @param movieId The ID of the movie to add.
+   */
   addToFavorites(movieId: string): void {
     const username = localStorage.getItem('user');
     if (username) {
@@ -79,6 +111,9 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
+  /**
+   * Logs the user out and sends them back to the welcome screen.
+   */
   logout(): void {
     localStorage.clear();
     this.router.navigate(['/welcome']);

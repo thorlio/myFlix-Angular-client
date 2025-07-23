@@ -31,7 +31,7 @@
               "@angular/material/prebuilt-themes/rose-red.css",
               "src/styles.scss"
             ],
-            "outputPath": "dist/myFlix-Angular-client/browser",
+            "outputPath": "dist/myFlix-Angular-client",
             "index": "src/index.html",
             "baseHref": "/myFlix-Angular-client/"
           },
